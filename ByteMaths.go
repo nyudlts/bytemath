@@ -35,6 +35,7 @@ func Round(val float64, roundOn float64, places int) (newVal float64) {
 	newVal = round / pow
 	return
 }
+
 func ConvertToBytes(count float64, suffix Suffix) float64 {
 
 	c := count
