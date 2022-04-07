@@ -1,4 +1,4 @@
-github.com/nyudlts/bytemath
+module github.com/nyudlts/bytemath
 
 go 1.18
 
