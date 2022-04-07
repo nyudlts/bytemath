@@ -22,7 +22,7 @@ const (
 	TB
 )
 
-func Round(val float64, roundOn float64, places int) (newVal float64) {
+func round(val float64, roundOn float64, places int) (newVal float64) {
 	var round float64
 	pow := math.Pow(10, float64(places))
 	digit := pow * val
@@ -39,14 +39,14 @@ func Round(val float64, roundOn float64, places int) (newVal float64) {
 func ConvertToBytes(count float64, suffix Suffix) float64 {
 
 	c := count
-	for i := 0; i < GetNumberOfLoops(suffix); i++ {
+	for i := 0; i < getNumberOfLoops(suffix); i++ {
 		c = c * 1024.0
 	}
 
 	return c
 }
 
-func ToHuman(size float64) string {
+func ConvertToHumanReadable(size float64) string {
 	suffixes[0] = "B"
 	suffixes[1] = "KB"
 	suffixes[2] = "MB"
@@ -54,12 +54,12 @@ func ToHuman(size float64) string {
 	suffixes[4] = "TB"
 
 	base := math.Log(size) / math.Log(1024)
-	getSize := Round(math.Pow(1024, base-math.Floor(base)), .5, 2)
+	getSize := round(math.Pow(1024, base-math.Floor(base)), .5, 2)
 	getSuffix := suffixes[int(math.Floor(base))]
 	return strconv.FormatFloat(getSize, 'f', -1, 64) + " " + string(getSuffix)
 }
 
-func GetNumberOfLoops(s Suffix) int {
+func getNumberOfLoops(s Suffix) int {
 	i := 0
 	switch s {
 	case B:
