@@ -1,4 +1,4 @@
-package ByteMaths
+package bytemath
 
 /* based on gist: https://gist.github.com/anikitenko/b41206a49727b83a530142c76b1cb82d */
 

@@ -1,4 +1,4 @@
-package ByteMaths
+package bytemath
 
 import (
 	"github.com/spf13/cast"
