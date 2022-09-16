@@ -183,3 +183,14 @@ func TestConvertBytesToOther(t *testing.T) {
 		}
 	})
 }
+
+func TestGetSuffixByValue(t *testing.T) {
+	t.Run("Test Getting Suffix by String Value", func(t *testing.T) {
+		suffixString := "KB"
+		want := KB
+		got := *GetSuffixByString(suffixString)
+		if got != want {
+			t.Errorf("Wanted %v got %v", want, got)
+		}
+	})
+}
