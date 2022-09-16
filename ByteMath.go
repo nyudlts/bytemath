@@ -46,14 +46,15 @@ func ConvertToBytes(count float64, suffix Suffix) float64 {
 	return c
 }
 
-func ConvertToHumanReadable(size float64) string {
+func ConvertToHumanReadable(sizeInBytes int64) string {
+	floatSize := float64(sizeInBytes)
 	suffixes[0] = "B"
 	suffixes[1] = "KB"
 	suffixes[2] = "MB"
 	suffixes[3] = "GB"
 	suffixes[4] = "TB"
 
-	base := math.Log(size) / math.Log(1024)
+	base := math.Log(floatSize) / math.Log(1024)
 	getSize := round(math.Pow(1024, base-math.Floor(base)), .5, 2)
 	getSuffix := suffixes[int(math.Floor(base))]
 	return strconv.FormatFloat(getSize, 'f', -1, 64) + " " + string(getSuffix)

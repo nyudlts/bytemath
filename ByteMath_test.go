@@ -5,9 +5,9 @@ import (
 	"testing"
 )
 
-func TestHumanReadable(t *testing.T) {
-	t.Run("Test Kilabytes", func(t *testing.T) {
-		oneK := 1024.0
+func TestByteMath(t *testing.T) {
+	t.Run("Test Kilobytes", func(t *testing.T) {
+		var oneK int64 = 1024
 		want := "1 KB"
 		got := ConvertToHumanReadable(oneK)
 		if got != want {
@@ -16,7 +16,7 @@ func TestHumanReadable(t *testing.T) {
 	})
 
 	t.Run("Test Megabytes", func(t *testing.T) {
-		mbs := 999 * 1024.0 * 1024.0
+		mbs := int64(999 * 1024.0 * 1024.0)
 		want := "999 MB"
 		got := ConvertToHumanReadable(mbs)
 		if got != want {
@@ -24,9 +24,6 @@ func TestHumanReadable(t *testing.T) {
 		}
 	})
 
-}
-
-func TestConvertToByte(t *testing.T) {
 	count := cast.ToFloat64(999)
 	t.Run("Test convert byte to byte", func(t *testing.T) {
 
