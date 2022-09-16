@@ -7,11 +7,6 @@ import (
 	"strconv"
 )
 
-var (
-	sizeInMB float64 = 999 // This is in megabytes
-	suffixes [5]string
-)
-
 type Suffix int
 
 const (
@@ -20,7 +15,43 @@ const (
 	MB
 	GB
 	TB
+	PB
 )
+
+var suffixes = map[Suffix]string{
+	B:  "B",
+	KB: "KB",
+	MB: "MB",
+	GB: "GB",
+	TB: "TB",
+	PB: "PB",
+}
+
+func ConvertToBytes(bytes float64, suffix Suffix) float64 {
+	for i := 0; i < getNumberOfLoops(suffix); i++ {
+		bytes = bytes * 1024.0
+	}
+	return bytes
+}
+
+func ConvertBytesToHumanReadable(sizeInBytes int64) string {
+	floatSize := float64(sizeInBytes)
+	base := math.Log(floatSize) / math.Log(1024)
+	getSize := round(math.Pow(1024, base-math.Floor(base)), .5, 2)
+	getSuffix := suffixes[Suffix(int(math.Floor(base)))]
+	return strconv.FormatFloat(getSize, 'f', -1, 64) + " " + string(getSuffix)
+}
+
+func ConvertBytes(iIn int64, s Suffix) float64 {
+	numLoops := getNumberOfLoops(s)
+	fIn := float64(iIn)
+	var multiplier float64 = 1024
+	for i := 0; i < numLoops; i++ {
+		fIn = fIn * multiplier
+	}
+	base := math.Log(float64(iIn)) / math.Log(1024)
+	return round(math.Pow(1024, base-math.Floor(base)), .5, 2)
+}
 
 func round(val float64, roundOn float64, places int) (newVal float64) {
 	var round float64
@@ -36,30 +67,6 @@ func round(val float64, roundOn float64, places int) (newVal float64) {
 	return
 }
 
-func ConvertToBytes(count float64, suffix Suffix) float64 {
-
-	c := count
-	for i := 0; i < getNumberOfLoops(suffix); i++ {
-		c = c * 1024.0
-	}
-
-	return c
-}
-
-func ConvertToHumanReadable(sizeInBytes int64) string {
-	floatSize := float64(sizeInBytes)
-	suffixes[0] = "B"
-	suffixes[1] = "KB"
-	suffixes[2] = "MB"
-	suffixes[3] = "GB"
-	suffixes[4] = "TB"
-
-	base := math.Log(floatSize) / math.Log(1024)
-	getSize := round(math.Pow(1024, base-math.Floor(base)), .5, 2)
-	getSuffix := suffixes[int(math.Floor(base))]
-	return strconv.FormatFloat(getSize, 'f', -1, 64) + " " + string(getSuffix)
-}
-
 func getNumberOfLoops(s Suffix) int {
 	i := 0
 	switch s {
@@ -73,6 +80,8 @@ func getNumberOfLoops(s Suffix) int {
 		i = 3
 	case TB:
 		i = 4
+	case PB:
+		i = 5
 	}
 
 	return i
