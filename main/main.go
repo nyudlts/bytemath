@@ -11,19 +11,18 @@ import (
 var (
 	suffix string
 	sfx    *bytemath.Suffix
-	bytes  int64
-	count  float64
+	dec    float64
 )
 
 func init() {
 	flag.StringVar(&suffix, "suffix", "", "")
-	flag.Int64Var(&bytes, "bytes", int64(0), "")
+	flag.Float64Var(&dec, "decimal", float64(0), "")
 }
 
 func main() {
 	flag.Parse()
 
-	if bytes == 0 {
+	if dec == 0 {
 		panic(fmt.Errorf("Cannot do any calculations with a value of 0"))
 		os.Exit(1)
 	}
@@ -38,8 +37,8 @@ func main() {
 }
 
 func printTable() {
-	fmt.Printf("%d %s is:\n", bytes, bytemath.GetSuffixString(*sfx).Short)
-	b := bytemath.ConvertToBytes(float64(bytes), *sfx)
+	fmt.Printf("%f %s is:\n", dec, bytemath.GetSuffixString(*sfx).Short)
+	b := bytemath.ConvertToBytes(dec, *sfx)
 	bInt64 := int64(b)
 	valueTable := bytemath.GetValueTable(bInt64)
 	fmt.Printf("  %d %s\n", int64(valueTable[bytemath.B]), bytemath.GetSuffixString(bytemath.B).Long)
