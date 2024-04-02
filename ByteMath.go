@@ -65,8 +65,6 @@ func ConvertBytes(iIn int64, s Suffix) float64 {
 	for i := 0; i < numLoops; i++ {
 		f = f / multiplier
 	}
-	//base := math.Log(float64(iIn)) / math.Log(1024)
-	//return round(math.Pow(1024, base-math.Floor(base)), .5, 2)
 	return f
 }
 
