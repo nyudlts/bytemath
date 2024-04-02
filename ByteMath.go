@@ -24,12 +24,12 @@ type SuffixStrings struct {
 }
 
 var suffixStrings = map[Suffix]SuffixStrings{
-	B:  SuffixStrings{"B", "bytes"},
-	KB: SuffixStrings{"KB", "kilobytes"},
-	MB: SuffixStrings{"MB", "megabytes"},
-	GB: SuffixStrings{"GB", "gigabytes"},
-	TB: SuffixStrings{"TB", "terabytes"},
-	PB: SuffixStrings{"PB", "petabytes"},
+	B:  {"B", "bytes"},
+	KB: {"KB", "kilobytes"},
+	MB: {"MB", "megabytes"},
+	GB: {"GB", "gigabytes"},
+	TB: {"TB", "terabytes"},
+	PB: {"PB", "petabytes"},
 }
 
 func GetSuffixString(sfx Suffix) SuffixStrings { return suffixStrings[sfx] }
