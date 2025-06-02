@@ -3,9 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/nyudlts/bytemath"
 	"os"
 	"strings"
+
+	"github.com/nyudlts/bytemath"
 )
 
 var (
@@ -47,4 +48,5 @@ func printTable() {
 	fmt.Printf("  %.2f %s\n", valueTable[bytemath.GB], bytemath.GetSuffixString(bytemath.GB).Long)
 	fmt.Printf("  %.2f %s\n", valueTable[bytemath.TB], bytemath.GetSuffixString(bytemath.TB).Long)
 	fmt.Printf("  %.2f %s\n", valueTable[bytemath.PB], bytemath.GetSuffixString(bytemath.PB).Long)
+	fmt.Printf("  %s\n", bytemath.ConvertBytesToHumanReadable(int64(b))+"\n")
 }
